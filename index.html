@@ -13,24 +13,87 @@
 </head>
 
 <body>
-    
-    <h1>Gantt Chart</h1>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1>Gantt Chart</h1>
+            <div class="">NTUST Group XX</div>
+        </div>
+
+    </div>
     <div class="container">
+        <div class="col">
+            <div id="chart_div"></div>
+        </div>
         <div class="row">
-            <div class="col col-lg-6">
-                form
+            <div class="col d-flex flex-column mb-3">
+                <div id="data-table">
+                    <form>
+                        <table id="task_table" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Task Name</th>
+                                    <th scope="col">Resource</th>
+                                    <th scope="col">Start Date</th>
+                                    <th scope="col">End Date</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Complete %</th>
+                                    <!--<th scope="col">Dependencies</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="task-1">
+                                    <th scope="row" class="align-middle">
+                                        <button type="button" class="close" data-id="1" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </th>
+                                    <td><input class="form-control" type="text"></td>
+                                    <td><input class="form-control" type="text"></td>
+                                    <td><input class="form-control" type="date" name="bday"></td>
+                                    <td><input class="form-control" type="date" name="bday"></td>
+                                    <td><input class="form-control" type="number" min="0" placeholder="Optional"></td>
+                                    <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>
+                                    <!--<td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div style="display:none;">
+                            <table id="sample_table">
+                                <tr id="">
+                                    <th scope="row" class="align-middle">
+                                        <button type="button" class="close" data-id="0" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </th>
+                                    <td><input class="form-control" type="text"></td>
+                                    <td><input class="form-control" type="text"></td>
+                                    <td><input class="form-control" type="date" name="bday"></td>
+                                    <td><input class="form-control" type="date" name="bday"></td>
+                                    <td><input class="form-control" type="number" min="0" placeholder="Optional"></td>
+                                    <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div id="data-control" class="d-flex mt-auto mb-3">
+
+                    <button id="add-row" type="button" class="btn btn-outline-secondary mr-auto">Add new task</button>
+                    <button type="button" class="btn btn-outline-success">Show</button>
+
+                </div>
             </div>
-            <div class="col col-lg-6">
-                <div id="chart_div"></div>
-            </div>
+
         </div>
     </div>
-    
-    
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    
+
     <script type="text/javascript">
         google.charts.load('current', {
             'packages': ['gantt']
@@ -82,12 +145,10 @@
 
             chart.draw(data, options);
         }
-
     </script>
-    
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-</body>
-
-</html>
+    <script src="js/data-control.js"></script>
+</body></html>
