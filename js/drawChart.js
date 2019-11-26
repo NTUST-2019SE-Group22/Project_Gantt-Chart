@@ -27,7 +27,7 @@ function initialChart() {
     chart = new google.visualization.Gantt(document.getElementById('chart_div'));
 }
 
-function test()
+function show()
 {
     alert('yee');
     data.addColumn('string', 'Task ID');
