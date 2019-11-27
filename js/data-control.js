@@ -9,7 +9,7 @@ $(document).ready(function () {
         size++;
         console.log(size);
         element.attr('id', 'task-' + size);
-        element.find('.close').attr('data-id', size);
+        element.find('.close').attr('data-id', 'task-' + size);
         element.appendTo('#task_table > tbody');
     });
 
@@ -19,7 +19,7 @@ $(document).ready(function () {
         if (didConfirm == true) {
             var id = jQuery(this).attr('data-id');
 //            var targetDiv = jQuery(this).attr('targetDiv');
-            $('#task-' + id).remove();
+            $('#' + id).remove();
             return true;
         } else {
             return false;

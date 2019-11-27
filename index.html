@@ -44,18 +44,16 @@
                             <tbody>
                                 <tr id="task-1">
                                     <th scope="row" class="align-middle">
-                                        <button type="button" class="close" data-id="1" aria-label="Close">
+                                        <button type="button" class="close" data-id="task-1" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </th>
-<!-- edit -->
                                     <td><input class="form-control" type="text" name="taskName"></td>
                                     <td><input class="form-control" type="text" name="resource"></td>
                                     <td><input class="form-control" type="date" name="startDay"></td> <!-- TODO: initial date tody -->
                                     <td><input class="form-control" type="date" name="endDay"></td>
                                     <td><input class="form-control" type="number" min="0" placeholder="Optional" name="duration"></td>
                                     <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
-<!-- edit -->                                   
                                     <!--<td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>-->
                                 </tr>
                             </tbody>
@@ -68,21 +66,24 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </th>
-<!-- edit -->
                                     <td><input class="form-control" type="text" name="taskName"></td>
                                     <td><input class="form-control" type="text" name="resource"></td>
                                     <td><input class="form-control" type="date" name="startDay"></td>
                                     <td><input class="form-control" type="date" name="endDay"></td>
                                     <td><input class="form-control" type="number" min="0" placeholder="Optional" name="duration"></td>
                                     <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
-<!-- edit -->
                                 </tr>
                             </table>
                         </div>
+
                     </form>
                 </div>
                 <div id="data-control" class="d-flex mt-auto mb-3">
-                    <button id="add-row" type="button" class="btn btn-outline-secondary mr-auto">Add new task</button>
+                    <button id="add-row" type="button" class="btn btn-outline-secondary mr-1">Add new task</button>
+                    <label class="btn btn-outline-secondary mr-auto mb-0">
+                        <input id="upload_file" style="display:none;" type="file">
+                        Upload File
+                    </label>
                     <button type="button" class="btn btn-outline-success" onclick="show()">Show</button>
                 </div>
             </div>
@@ -96,7 +97,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="js/data-control.js"></script>
-<!-- edit-->
-    <script type="text/javascript" src="js/drawChart.js"></script>
-<!-- edit-->
+    <script type="text/javascript" src="js/drawChart.js"></script><!-- TODO: rename js -->
+    <script src="js/file-upload.js"></script>
 </body></html>
