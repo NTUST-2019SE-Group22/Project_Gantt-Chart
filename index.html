@@ -44,16 +44,16 @@
                             <tbody>
                                 <tr id="task-1">
                                     <th scope="row" class="align-middle">
-                                        <button type="button" class="close" data-id="1" aria-label="Close">
+                                        <button type="button" class="close" data-id="task-1" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </th>
-                                    <td><input class="form-control" type="text"></td>
-                                    <td><input class="form-control" type="text"></td>
-                                    <td><input class="form-control" type="date" name="bday"></td>
-                                    <td><input class="form-control" type="date" name="bday"></td>
-                                    <td><input class="form-control" type="number" min="0" placeholder="Optional"></td>
-                                    <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>
+                                    <td><input class="form-control" type="text" name="taskName"></td>
+                                    <td><input class="form-control" type="text" name="resource"></td>
+                                    <td><input class="form-control" type="date" name="startDay"></td> <!-- TODO: initial date tody -->
+                                    <td><input class="form-control" type="date" name="endDay"></td>
+                                    <td><input class="form-control" type="number" min="0" placeholder="Optional" name="duration"></td>
+                                    <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
                                     <!--<td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>-->
                                 </tr>
                             </tbody>
@@ -66,15 +66,16 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </th>
-                                    <td><input class="form-control" type="text"></td>
-                                    <td><input class="form-control" type="text"></td>
-                                    <td><input class="form-control" type="date" name="bday"></td>
-                                    <td><input class="form-control" type="date" name="bday"></td>
-                                    <td><input class="form-control" type="number" min="0" placeholder="Optional"></td>
-                                    <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>
+                                    <td><input class="form-control" type="text" name="taskName"></td>
+                                    <td><input class="form-control" type="text" name="resource"></td>
+                                    <td><input class="form-control" type="date" name="startDay"></td>
+                                    <td><input class="form-control" type="date" name="endDay"></td>
+                                    <td><input class="form-control" type="number" min="0" placeholder="Optional" name="duration"></td>
+                                    <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
                                 </tr>
                             </table>
                         </div>
+
                     </form>
                 </div>
                 <div id="data-control" class="d-flex mt-auto mb-3">
