@@ -8,7 +8,7 @@ function daysToMilliseconds(days) {
 }
 
 var options = {
-    height: 400
+    height: 300
 };
 var chart;
 var data;
@@ -24,12 +24,6 @@ var col = { 'Task ID' : 0,
 
 function initialChart() {
     data = new google.visualization.DataTable();
-    chart = new google.visualization.Gantt(document.getElementById('chart_div'));
-}
-
-function show()
-{
-    alert('yee');
     data.addColumn('string', 'Task ID');
     data.addColumn('string', 'Task Name');
     data.addColumn('string', 'Resource');
@@ -38,8 +32,68 @@ function show()
     data.addColumn('number', 'Duration');
     data.addColumn('number', 'Percent Complete');
     data.addColumn('string', 'Dependencies');
-    data.addRows([['aa', 'aa', 'complete', null, null, daysToMilliseconds(5), 40, null]]);
-    chart.draw(data, options);
-    
+    chart = new google.visualization.Gantt(document.getElementById('chart_div'));
 }
 
+function show()
+{
+    var i;
+    var tableRows = $("#task_table > tbody > tr").length;
+    var dataRows = data.getNumberOfRows();
+    
+    for (i = 1; i <= tableRows; i++) 
+    {
+        var temp = '#task_table > tbody > tr:nth-child(' + i + ')';
+        var taskID = '#' + $(temp).attr("id");
+        var taskName = $(taskID).find('input[name="taskName"]').val();
+        var resource = $(taskID).find('input[name="resource"]').val();
+        var startDay = $(taskID).find('input[name="startDay"]').val();
+        var endDay = $(taskID).find('input[name="endDay"]').val();
+        var duration = $(taskID).find('input[name="duration"]').val();
+        var complete = $(taskID).find('input[name="complete"]').val();
+
+        // type convertion
+        startDay = new Date(startDay);  // to API cceptable
+        endDay = new Date(endDay);  // to API cceptable
+        duration = Number(duration);    // to number
+        duration = daysToMilliseconds(duration);    // to API cceptable
+        complete = Number(complete);
+
+        var newTask = true; 
+        for (var y = 0; y < dataRows; y++)
+        {
+            if (data.getValue(y,0) == taskID)
+            {
+                newTask = false;
+                break;
+            }
+        }
+
+        if (newTask)
+        {
+            // alert("new task")
+            data.addRows([[taskID, taskName, resource, startDay, endDay, duration, complete, null]]);
+        }
+        else
+        {
+            // alert("edit task")
+            // update all attribute
+            for (var y = 0; y < dataRows; y++) {
+                if (data.getValue(y, 0) == taskID) {
+                    data.setValue(y, 1, taskName);
+                    data.setValue(y, 2, resource);
+                    data.setValue(y, 3, startDay);
+                    data.setValue(y, 4, endDay);
+                    data.setValue(y, 5, duration);
+                    data.setValue(y, 6, complete);
+                }
+            }
+        }
+    }
+
+    chart.draw(data, options);
+}
+
+function test() {
+
+}
