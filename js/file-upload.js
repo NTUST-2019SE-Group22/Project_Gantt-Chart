@@ -6,15 +6,15 @@ function startRead() {
 
     var reader = new FileReader();
     reader.addEventListener('load', function () {
-        data = this.result;
-        data = JSON.parse(data);
-        console.log(data);
+        var fileData = this.result;
+        fileData = JSON.parse(fileData);
+        console.log(fileData);
         // Clear origin table
         $('#task_table > tbody').html("");
 
         // Append row
-        for (var i = 0; i < data.length; i++) {
-            var obj = data[i];
+        for (var i = 0; i < fileData.length; i++) {
+            var obj = fileData[i];
 
             console.log(obj.id);
             var content = jQuery('#sample_table tr'),
