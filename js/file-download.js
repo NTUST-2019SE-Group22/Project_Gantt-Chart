@@ -11,13 +11,13 @@ function downloadJSON() {
         viewData[row]["endDay"] = $(this).find("input[name='endDay']").val();
         viewData[row]["duration"] = $(this).find("input[name='duration']").val();
         viewData[row]["complete"] = $(this).find("input[name='complete']").val();
-        console.log($(this).attr('id'));
-        console.log($(this).find("input[name='taskName']").val());
-        console.log($(this).find("input[name='resource']").val());
-        console.log($(this).find("input[name='startDay']").val());
-        console.log($(this).find("input[name='endDay']").val());
-        console.log($(this).find("input[name='duration']").val());
-        console.log($(this).find("input[name='complete']").val());
+//         console.log($(this).attr('id'));
+//         console.log($(this).find("input[name='taskName']").val());
+//         console.log($(this).find("input[name='resource']").val());
+//         console.log($(this).find("input[name='startDay']").val());
+//         console.log($(this).find("input[name='endDay']").val());
+//         console.log($(this).find("input[name='duration']").val());
+//         console.log($(this).find("input[name='complete']").val());
 
     });
 
@@ -26,35 +26,28 @@ function downloadJSON() {
     downloadJSONLink.setAttribute("href", jsonStr);
     downloadJSONLink.setAttribute("download", "download_document.json");
     downloadJSONLink.click();
+}
 
-    //    var reader = new FileReader();
-    //    
-    //    reader.addEventListener('load', function () {
-    //        data = this.result;
-    //        data = JSON.parse(data);
-    //        console.log(data);
-    //        // Clear origin table
-    //        $('#task_table > tbody').html("");
-    //
-    //        // Append row
-    //        for (var i = 0; i < data.length; i++) {
-    //            var obj = data[i];
-    //
-    //            console.log(obj.id);
-    //            var content = jQuery('#sample_table tr'),
-    //                element = null,
-    //                element = content.clone();
-    //            element.attr('id', 'fileTask-' + i);
-    //            element.find('.close').attr('data-id', 'fileTask-' + i);
-    //            element.find("input[name='taskName']").val(obj.taskName);
-    //            element.find("input[name='resource']").val(obj.resource);
-    //            element.find("input[name='startDay']").val(obj.startDay);
-    //            element.find("input[name='endDay']").val(obj.endDay);
-    //            element.find("input[name='duration']").val(obj.duration);
-    //            element.find("input[name='complete']").val(obj.complete);
-    //            element.appendTo('#task_table > tbody');
-    //        }
-    //    });
-    //    reader.readAsText(inputElement.files.item(0));
+function imageOutput()
+{
+    var svgString = new XMLSerializer().serializeToString(document.querySelector('svg'));
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var DOMURL = self.URL || self.webkitURL || self;
+    var img = new Image();
+    var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+    var url = DOMURL.createObjectURL(svg);
+    var png, jpeg;
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0);
+        png = canvas.toDataURL("image/png");
+        jpeg = canvas.toDataURL("image/jpeg");
+        $("#downloadJPG").attr("href", jpeg);
+        $("#downloadPNG").attr("href", png);
+        DOMURL.revokeObjectURL(png);
+        DOMURL.revokeObjectURL(jpeg);
+    };
+    img.src = url;
 
+    $("#downloadSVG").attr("href", url); 
 }
