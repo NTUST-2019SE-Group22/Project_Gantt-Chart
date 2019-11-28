@@ -39,8 +39,8 @@ function show()
 {
     var i;
     var tableRows = $("#task_table > tbody > tr").length;
-    var dataRows = data.getNumberOfRows();
-    
+    var dataRows;
+    // alert('tableRows ' + tableRows);
     for (i = 1; i <= tableRows; i++) 
     {
         var temp = '#task_table > tbody > tr:nth-child(' + i + ')';
@@ -59,7 +59,9 @@ function show()
         duration = daysToMilliseconds(duration);    // to API cceptable
         complete = Number(complete);
 
-        var newTask = true; 
+        var newTask = true;
+        dataRows = data.getNumberOfRows();
+        // alert('dataRows ' + dataRows);
         for (var y = 0; y < dataRows; y++)
         {
             if (data.getValue(y,0) == taskID)

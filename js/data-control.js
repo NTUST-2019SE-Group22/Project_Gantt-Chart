@@ -17,9 +17,16 @@ $(document).ready(function () {
         e.preventDefault();
         var didConfirm = confirm("Are you sure you want to delete this task?");
         if (didConfirm == true) {
-            var id = jQuery(this).attr('data-id');
+            var id = '#' + jQuery(this).attr('data-id');
 //            var targetDiv = jQuery(this).attr('targetDiv');
-            $('#' + id).remove();
+            $(id).remove();
+            var dataRows = data.getNumberOfRows();
+            for(var y = 0; y < dataRows; y++) {
+                if (data.getValue(y, 0) == id) {
+                    data.removeRow(y);
+                    break;
+                }
+            }
             return true;
         } else {
             return false;
