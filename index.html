@@ -78,14 +78,18 @@
 
                     </form>
                 </div>
+<!--begin-->
                 <div id="data-control" class="d-flex mt-auto mb-3">
                     <button id="add-row" type="button" class="btn btn-outline-secondary mr-1">Add new task</button>
-                    <label class="btn btn-outline-secondary mr-auto mb-0">
+                    <label class="btn btn-outline-secondary mr-1 mb-0">
                         <input id="upload_file" style="display:none;" type="file">
                         Upload File
                     </label>
+                    <button type="button" class="btn btn-outline-secondary mr-auto" onclick="downloadJSON()">Download</button>
+                    <a id="downloadJSON" style="display:none"></a>
                     <button type="button" class="btn btn-outline-success" onclick="show()">Show</button>
                 </div>
+<!--end-->
             </div>
         </div>
     </div>
@@ -99,4 +103,5 @@
     <script src="js/data-control.js"></script>
     <script type="text/javascript" src="js/drawChart.js"></script><!-- TODO: rename js -->
     <script src="js/file-upload.js"></script>
+    <script src="js/file-download.js"></script>
 </body></html>
