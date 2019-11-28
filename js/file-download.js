@@ -1,3 +1,33 @@
+function downloadJSON() {
+    viewData = [];
+    var row = -1;
+    $('#task_table > tbody tr').each(function () {
+        row++;
+        viewData.push({});
+        viewData[row]["id"] = $(this).attr('id');
+        viewData[row]["taskName"] = $(this).find("input[name='taskName']").val();
+        viewData[row]["resource"] = $(this).find("input[name='resource']").val();
+        viewData[row]["startDay"] = $(this).find("input[name='startDay']").val();
+        viewData[row]["endDay"] = $(this).find("input[name='endDay']").val();
+        viewData[row]["duration"] = $(this).find("input[name='duration']").val();
+        viewData[row]["complete"] = $(this).find("input[name='complete']").val();
+//         console.log($(this).attr('id'));
+//         console.log($(this).find("input[name='taskName']").val());
+//         console.log($(this).find("input[name='resource']").val());
+//         console.log($(this).find("input[name='startDay']").val());
+//         console.log($(this).find("input[name='endDay']").val());
+//         console.log($(this).find("input[name='duration']").val());
+//         console.log($(this).find("input[name='complete']").val());
+
+    });
+
+    var jsonStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(viewData));
+    var downloadJSONLink = $('#downloadJSON')[0];
+    downloadJSONLink.setAttribute("href", jsonStr);
+    downloadJSONLink.setAttribute("download", "download_document.json");
+    downloadJSONLink.click();
+}
+
 function imageOutput()
 {
     var svgString = new XMLSerializer().serializeToString(document.querySelector('svg'));
