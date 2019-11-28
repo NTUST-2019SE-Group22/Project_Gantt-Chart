@@ -7,20 +7,9 @@ function daysToMilliseconds(days) {
     return days * 24 * 60 * 60 * 1000;
 }
 
-var options = {
-    height: 300
-};
+
 var chart;
 var data;
-var col = { 'Task ID' : 0, 
-            'Task Name' : 1, 
-            'Resource' : 2, 
-            'Start Date' : 3,
-            'End Date' : 4, 
-            'Duration' : 5, 
-            'Percent Complete' : 6, 
-            'Dependencies' : 7
-};
 
 function initialChart() {
     data = new google.visualization.DataTable();
@@ -93,9 +82,16 @@ function show()
         }
     }
 
+    var options = {
+        height: 45 * data.getNumberOfRows() + 50,
+        gantt: {
+            trackHeight: 45
+        }
+    };
+
     chart.draw(data, options);
-}
-
-function test() {
-
+    var svgWidth = $('svg').attr("width");
+    var svgHeight = $('svg').attr("height");
+    console.log();
+    $("#canvas").attr({width: svgWidth, height: svgHeight});
 }
