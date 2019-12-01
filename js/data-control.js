@@ -27,8 +27,10 @@ $(document).ready(function () {
                     break;
                 }
             }
+            show();
             return true;
         } else {
+            show();
             return false;
         }
     });
