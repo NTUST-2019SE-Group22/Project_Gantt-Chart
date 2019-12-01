@@ -83,12 +83,16 @@ function show()
     }
 
     var options = {
-        height: 45 * data.getNumberOfRows() + 50,
         gantt: {
             trackHeight: 45
-        }
+        },
+        height: 180
     };
-
+    if ((options.gantt.trackHeight * data.getNumberOfRows() + 50) > 180)
+    {
+        options.height = options.gantt.trackHeight * data.getNumberOfRows() + 50;
+    }
+    // options.height = (() ? (options.gantt.trackHeight * data.getNumberOfRows() + 50) : 180;
     chart.draw(data, options);
     var svgWidth = $('svg').attr("width");
     var svgHeight = $('svg').attr("height");
