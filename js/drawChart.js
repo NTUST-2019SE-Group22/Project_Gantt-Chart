@@ -42,10 +42,10 @@ function show()
         var complete = $(taskID).find('input[name="complete"]').val();
 
         // type convertion
-        startDay = new Date(startDay);  // to API cceptable
-        endDay = new Date(endDay);  // to API cceptable
+        startDay = new Date(startDay);  // to API acceptable
+        endDay = new Date(endDay);  // to API acceptable
         duration = Number(duration);    // to number
-        duration = daysToMilliseconds(duration);    // to API cceptable
+        duration = daysToMilliseconds(duration);    // to API acceptable
         complete = Number(complete);
 
         var newTask = true;
