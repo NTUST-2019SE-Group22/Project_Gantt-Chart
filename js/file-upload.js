@@ -1,6 +1,6 @@
 var inputElement = document.getElementById("upload_file");
 inputElement.addEventListener("change", startRead, false);
-//inputElement.addEventListener("click", startRead, false);
+inputElement.addEventListener("click", startRead, false);
 
 function startRead() {
 
@@ -11,6 +11,10 @@ function startRead() {
         console.log(fileData);
         // Clear origin table
         $('#task_table > tbody').html("");
+        // Clear origin DataTable
+        for(var y = 0; y < data.getNumberOfRows(); y++) {
+            data.removeRow(y);
+        }
 
         // Append row
         for (var i = 0; i < fileData.length; i++) {
@@ -30,6 +34,7 @@ function startRead() {
             element.find("input[name='complete']").val(obj.complete);
             element.appendTo('#task_table > tbody');
         }
+        show();
     });
     reader.readAsText(inputElement.files.item(0));
 

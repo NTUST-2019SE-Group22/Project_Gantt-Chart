@@ -20,6 +20,7 @@ $(document).ready(function () {
             var id = '#' + jQuery(this).attr('data-id');
 //            var targetDiv = jQuery(this).attr('targetDiv');
             $(id).remove();
+            // delete rowdata in DataTable
             var dataRows = data.getNumberOfRows();
             for(var y = 0; y < dataRows; y++) {
                 if (data.getValue(y, 0) == id) {
