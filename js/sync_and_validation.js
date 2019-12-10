@@ -1,7 +1,7 @@
-// $(".form-control").attr("onchange", "show()");
+// SYNC
 
-// TODO: validation
 
+// validation
 (function() {
     'use strict';
     window.addEventListener('load', function() {
@@ -10,17 +10,17 @@
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function(form) {
             form.addEventListener('change', function(event) {
+                console.log(form.checkValidity());
                 if (form.checkValidity() === false) {
                     event.preventDefault();
-                    event.stopPropagation();
+                    // event.stopPropagation();
+                }
+                else {
+                    // SYNC
+                    show();
                 }
                 form.classList.add('was-validated');
             }, false);
         });
     }, false);
 })();
-
-function test()
-{
-    console.log('!!');
-}
