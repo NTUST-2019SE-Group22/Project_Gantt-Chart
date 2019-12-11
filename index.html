@@ -60,7 +60,7 @@
                                     <td><input class="form-control" type="text" name="resource" placeholder="Optional"></td>
                                     <td>
                                         <div class="input-grup">
-                                            <input class="form-control" type="date" name="startDay" required>
+                                            <input class="form-control" type="date" name="startDay" onchange="Start_End_Listener()" required>
                                             <div class="invalid-feedback">
                                                 Please choose a start day.
                                             </div>
@@ -68,7 +68,7 @@
                                     </td>
                                     <td>
                                         <div class="input-grup">
-                                            <input class="form-control" type="date" name="endDay" required>
+                                            <input class="form-control" type="date" name="endDay" onchange="Start_End_Listener()" required>
                                             <div class="invalid-feedback">
                                                 Please choose an eny day(after start day).
                                             </div>
@@ -76,7 +76,7 @@
                                     </td>
                                     <td>
                                         <div class="input-grup">
-                                            <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" required>
+                                            <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" onchange="Duration_Listener()" required>
                                             <div class="invalid-feedback">
                                                 Please set the duration.
                                             </div>
@@ -107,7 +107,7 @@
                                 <td><input class="form-control" type="text" name="resource" placeholder="Optional"></td>
                                 <td>
                                     <div class="input-grup">
-                                        <input class="form-control" type="date" name="startDay" required>
+                                        <input class="form-control" type="date" name="startDay" onchange="Start_End_Listener()" required>
                                         <div class="invalid-feedback">
                                             Please choose a start Day.
                                         </div>
@@ -115,7 +115,7 @@
                                 </td>
                                 <td>
                                     <div class="input-grup">
-                                        <input class="form-control" type="date" name="endDay" required>
+                                        <input class="form-control" type="date" name="endDay" onchange="Start_End_Listener()" required>
                                         <div class="invalid-feedback">
                                             Please choose a eny day(after start day).
                                         </div>
@@ -123,7 +123,7 @@
                                 </td>
                                 <td>
                                     <div class="input-grup">
-                                        <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" required>
+                                        <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" onchange="Duration_Listener()" required>
                                         <div class="invalid-feedback">
                                             Please set the duration.
                                         </div>
@@ -133,8 +133,6 @@
                             </tr>
                         </table>
                     </div>
-                    <button type="submit">TEST</button>
-                    
                 </div>
                 <div id="data-control" class="d-flex mt-auto mb-3">
                     <button id="add-row" type="button" class="btn btn-outline-secondary mr-1">Add new task</button>
