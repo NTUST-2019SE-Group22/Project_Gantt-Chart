@@ -1,6 +1,6 @@
 var inputElement = document.getElementById("upload_file");
 inputElement.addEventListener("change", startRead, false);
-inputElement.addEventListener("click", startRead, false);
+//inputElement.addEventListener("click", startRead, false);
 
 function startRead() {
 
@@ -12,7 +12,7 @@ function startRead() {
         // Clear origin table
         $('#task_table > tbody').html("");
         // Clear origin DataTable
-        for(var y = 0; y < data.getNumberOfRows(); y++) {
+        for(var y = 0; y < data.getNumberOfRows();) {
             data.removeRow(y);
         }
 
