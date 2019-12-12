@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ chart.title }}</title>
+</head>
+<body>
+{% for chart in charts %}
+{{ chart.title }}<br>
+{{ chart.owner.username }}<br>
+{{ chart.last_modified }}<br>
+{{ chart.tasks }}<br>
+<a href="{% url 'charts:direct' chart.permanent_url %}">{{ chart.permanent_url }}</a><br>
+<a href="{{ chart.get_absolute_url }}">{{ chart.get_absolute_url }}</a><br>
+<hr>
+{% endfor %}
+</body>
+</html>
