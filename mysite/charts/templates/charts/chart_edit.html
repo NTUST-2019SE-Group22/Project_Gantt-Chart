@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ chart.title }}</title>
+</head>
+<body>
+{{ chart.title }}<br>
+{{ chart.owner.username }}<br>
+{{ chart.last_modified }}<br>
+{{ chart.tasks }}<br>
+{{ chart.permanent_url }}<br>
+<a href="{{ chart.get_absolute_url }}">{{ chart.get_absolute_url }}</a>
+</body>
+</html>
