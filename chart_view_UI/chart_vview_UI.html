@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)https://rec.cch.nctu.me/records/ -->
+<html lang="zh-tw">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./offcanvas.css">
+    <title>SW_ENGR Project</title>
+  </head>
+
+  <body class="bg-light">
+    <div class="fixed-top">
+      <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <a class="navbar-brand mr-auto mr-lg-3" href="TODO">Gantt Chart</a>
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="TODO">Home</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="TODO">Chart Management</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="TODO">Account Setting</a>
+            </li>
+            <li class="nav-item " >
+              <a class="nav-link" href="TODO">About the Project</a>
+            </li>
+          </ul>
+          
+          <form class="form-inline my-2 my-lg-0">
+              <div class="mr-3" style="color: white">Hi! Lee Danny</div>
+              <a class="btn btn-outline-light my-2 my-sm-0" href="TODO" role="button">Logout</a>
+            </form>
+      
+
+        </div>
+      </nav>
+       
+      <div class="nav-scroller bg-white box-shadow">
+          <nav class="nav nav-underline">
+            <label class="nav-link active" id="add-row">Add new Task</label>
+            <label class="nav-link active"><input id="upload_file" style="display:none;" type="file" accept=".json">Import JSON</label>
+            <label class="nav-link active" href="" onclick="downloadJSON()">Export JSON</label>
+            <a id="downloadJSON" style="display:none"></a>
+            <!-- <button onclick="imageOutput()">test</button> -->
+            <a class="nav-link active" href="" download id="downloadSVG" onclick="imageOutput()">Export SVG</a>
+            <a class="nav-link active" href="" download id="downloadPNG" onclick="imageOutput()">Export PNG</a>
+            <a class="nav-link active" href="" download id="downloadJPG" onclick="imageOutput()">Export JPG</a>
+          </nav>
+      </div>
+    </div>
+  
+
+  <main role="main" class="container">
+    <div id="chart_container" class="d-flex align-items-center p-3 my-3 text-white-50 rounded">
+      <div class="col-12">
+        <div id="chart_div" ></div>
+        <canvas id="canvas" style="display: none;"></canvas>
+      </div>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+        <div class="col-12 d-flex flex-column mb-3">
+            <div id="data-table">
+                <form class="needs-validation" novalidate>
+                    <table id="task_table" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Task Name</th>
+                                <th scope="col">Resource</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Complete %</th>
+                                <!--<th scope="col">Dependencies</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="task-1">
+                                <th scope="row" class="align-middle">
+                                    <button type="button" class="close" data-id="task-1" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </th>
+                                <td>
+                                    <div class="input-grup">
+                                        <input class="form-control" type="text" name="taskName" required>
+                                        <div class="invalid-feedback">
+                                            Please type a task name.
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><input class="form-control" type="text" name="resource" placeholder="Optional"></td>
+                                <td>
+                                    <div class="input-grup">
+                                        <input class="form-control" type="date" name="startDay" onchange="Start_End_Listener()" required>
+                                        <div class="invalid-feedback">
+                                            Please choose a start day.
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-grup">
+                                        <input class="form-control" type="date" name="endDay" onchange="Start_End_Listener()" required>
+                                        <div class="invalid-feedback">
+                                            Please choose an eny day(after start day).
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-grup">
+                                        <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" onchange="Duration_Listener()" required>
+                                        <div class="invalid-feedback">
+                                            Please set the duration.
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
+                                <!--<td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div style="display:none;">
+                    <table id="sample_table">
+                        <tr id="">
+                            <th scope="row" class="align-middle">
+                                <button type="button" class="close" data-id="0" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </th>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="text" name="taskName" required>
+                                    <div class="invalid-feedback">
+                                        Please type a task name.
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input class="form-control" type="text" name="resource" placeholder="Optional"></td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="date" name="startDay" onchange="Start_End_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please choose a start Day.
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="date" name="endDay" onchange="Start_End_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please choose a eny day(after start day).
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" onchange="Duration_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please set the duration.
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </main>
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/offcanvas.js"></script>
+    <script src="js/data-control.js"></script>
+    <script src="js/file-download.js"></script>
+    <script src="js/drawChart.js"></script>
+    <script src="js/file-upload.js"></script>
+    
+    <script src="js/sync_and_validation.js"></script>
+
+</body></html>
