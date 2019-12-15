@@ -1,0 +1,17 @@
+{% extends 'account/base.html' %}
+
+{% block body %}
+<header>
+  {% include 'account/parts/header.html' %}
+  </header>
+
+  <main role="main" class="container ">
+    <div class="row justify-content-md-center">
+        <div class="my-3 p-3 bg-white rounded box-shadow col-md-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</main>
+{% endblock %}
