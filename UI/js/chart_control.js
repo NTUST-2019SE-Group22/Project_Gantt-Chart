@@ -4,6 +4,22 @@ var chart;
 var data;
 
 $(document).ready(function () {
+
+    /**
+     * Validation
+     * Dynamic validate the form table, if valid then sow chart
+     */
+    var form = document.getElementById('data-table');
+    function validate() {
+        // console.log("validate");
+        $("button.close").disable = false;
+        if (form.checkValidity() === true)
+            show();
+        form.classList.add('was-validated');
+    }
+    form.addEventListener('change', validate, false);
+    /** ----- */
+
     /**
      *  Form data control
      *  Control from table, include add and remove row
@@ -28,12 +44,12 @@ $(document).ready(function () {
     // Remove the row in the form table
     $(".container").delegate('button.close', 'click', function (e) {
         e.preventDefault();
-        // var rows = document.getElementById("task_table").rows.length;
-        // console.log(rows);
-        // if (rows <= 1) {
-        //     alert("Can't remove last task!!");
-        //     return false;
-        // }
+        var rows = document.getElementById("task_table").rows.length;
+        console.log(rows);
+        if (rows <= 2) {
+            alert("WARNING: Can't remove last task!!");
+            return false;        
+        }
         var didConfirm = confirm("Are you sure you want to delete this task?");
         if (didConfirm == true) {
             var id = '#' + jQuery(this).attr('data-id');
@@ -47,30 +63,17 @@ $(document).ready(function () {
                     break;
                 }
             }
-            show();
+            validate();
             return true;
         }
         else {
-            show();
+            validate();
             return false;
         }
     });
     /** ----- */
 
-    /**
-     * Validation
-     * Dynamic validate the form table, if valid then sow chart
-     */
-    var form = document.getElementById('data-table');
-    form.addEventListener('change', function(event) {
-        if (form.checkValidity() === false)
-            event.preventDefault();
-        // SYNC
-        else 
-            show();
-        form.classList.add('was-validated');
-    }, false);
-    /** ----- */
+    
 
 });
 
@@ -194,7 +197,7 @@ inputElement.addEventListener("change", startRead, false);
 
 // upload file alert
 inputElement.onclick = function(e) {
-    var lodConfirm =  confirm('WARNNING: Upload file will delete the chart that you are making now.\nARE YOU SURE?');
+    var lodConfirm =  confirm('WARNING: Upload file will delete the chart that you are making now.\nARE YOU SURE?');
     if (!lodConfirm)
         e.preventDefault();
 }
