@@ -385,3 +385,49 @@ function Duration_Listener()
     $(taskID).find('input[name="endDay"]').val(endDay);
     // console.log('taskID: ' + taskID + ' d');
 }
+
+/**
+ * edit_on_click
+ * Text can edit by double click
+ */
+
+// editOnClick
+// When element call this function, hide it and new a text input to edit
+function editOnClick(element) {
+    var oldvalue = element.innerHTML;
+    // create new editable element object
+    var newobj = document.createElement('input');
+    newobj.type = 'text';
+    
+    // new object value = the calling element value
+    newobj.value = oldvalue;
+    
+    // calling element hided
+    element.setAttribute("style", "display:none");
+
+    // show the editable element at the original place
+    element.parentElement.appendChild(newobj);
+    newobj.setSelectionRange(0, oldvalue.length);
+    newobj.focus();
+
+    // onblur
+    // When bulr(non-focus), remove the editable element and show the edited text
+    newobj.onblur = function() {
+        // erase space front of the text
+        for (; this.value[0] == " "; )
+            this.value = this.value.substr(1, this.value.length);
+        // validation
+        // if new text isn't null new value
+        // if not, then keep the input box
+        if (this.value !=  "") {
+            if (this.value == oldvalue)
+                element.innerHTML = oldvalue;
+            else
+                element.innerHTML = this.value;
+            
+            // reshow original element
+            element.setAttribute("style","");
+            newobj.remove();
+        }
+    }
+}
