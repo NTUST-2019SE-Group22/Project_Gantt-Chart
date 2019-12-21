@@ -19,9 +19,17 @@ function editOnClick(element) {
 
     //為新增元素新增游標離開事件
     newobj.onblur = function() {
-        element.innerHTML = this.value == oldvalue ? oldvalue : this.value;
-        //當觸發時判斷新增元素值是否為空，為空則不修改，並返回原有值 
-        element.setAttribute("style","");
-        newobj.remove();
+        for (; this.value[0] == " "; )
+            this.value = this.value.substr(1, this.value.length);
+        if (this.value !=  "")
+        {
+            if (this.value == oldvalue)
+                element.innerHTML = oldvalue;
+            else
+                element.innerHTML = this.value;
+            //當觸發時判斷新增元素值是否為空，為空則不修改，並返回原有值 
+            element.setAttribute("style","");
+            newobj.remove();
+        }
     }
 }
