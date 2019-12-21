@@ -1,3 +1,8 @@
+// cahrt: the container object that API draw in
+// data: the data table that store chart's tasks
+var chart;
+var data;
+
 $(document).ready(function () {
     /**
      *  Form data control
@@ -65,66 +70,9 @@ $(document).ready(function () {
             show();
         form.classList.add('was-validated');
     }, false);
+    /** ----- */
 
 });
-
-/**
- *  Exprot file
- *  Export JSON and image file, include jpg, png, svg
- */
-
-// downloadJSON
-// Make a link to download the showing chart in JSON file,
-// that can be inport again to this system
-function downloadJSON() {
-    viewData = [];
-    var row = -1;
-    $('#task_table > tbody tr').each(function () {
-        row++;
-        viewData.push({});
-        viewData[row]["id"] = $(this).attr('id');
-        viewData[row]["taskName"] = $(this).find("input[name='taskName']").val();
-        viewData[row]["resource"] = $(this).find("input[name='resource']").val();
-        viewData[row]["startDay"] = $(this).find("input[name='startDay']").val();
-        viewData[row]["endDay"] = $(this).find("input[name='endDay']").val();
-        viewData[row]["duration"] = $(this).find("input[name='duration']").val();
-        viewData[row]["complete"] = $(this).find("input[name='complete']").val();
-    });
-
-    var jsonStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(viewData));
-    var downloadJSONLink = $('#downloadJSON')[0];
-    downloadJSONLink.setAttribute("href", jsonStr);
-    downloadJSONLink.setAttribute("download", "download_document.json");
-    downloadJSONLink.click();
-}
-
-// imageOutput
-// Make links to download the showing chart in image
-function imageOutput()
-{
-    // console.log('imgout');
-    var svgString = new XMLSerializer().serializeToString(document.querySelector('svg'));
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
-    var DOMURL = self.URL || self.webkitURL || self;
-    var img = new Image();
-    var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
-    var url = DOMURL.createObjectURL(svg);
-    var png, jpeg;
-    img.onload = function() {
-        ctx.drawImage(img, 0, 0);
-        png = canvas.toDataURL("image/png");
-        jpeg = canvas.toDataURL("image/jpeg");
-        $("#downloadJPG").attr("href", jpeg);
-        $("#downloadPNG").attr("href", png);
-        DOMURL.revokeObjectURL(png);
-        DOMURL.revokeObjectURL(jpeg);
-    };
-    img.src = url;
-
-    $("#downloadSVG").attr("href", url); 
-}
-/** ----- */
 
 /**
  * Draw chart
@@ -142,11 +90,6 @@ google.charts.setOnLoadCallback(initialChart);
 function daysToMilliseconds(days) {
     return days * 24 * 60 * 60 * 1000;
 }
-
-// cahrt: the container object that API draw in
-// data: the data table that store chart's tasks
-var chart;
-var data;
 
 // initialChart
 // Initial the data table columns and chart
@@ -250,8 +193,7 @@ var inputElement = document.getElementById("upload_file");
 inputElement.addEventListener("change", startRead, false);
 
 // upload file alert
-inputElement.onclick = function(e)
-{
+inputElement.onclick = function(e) {
     var lodConfirm =  confirm('WARNNING: Upload file will delete the chart that you are making now.\nARE YOU SURE?');
     if (!lodConfirm)
         e.preventDefault();
@@ -284,9 +226,8 @@ function startRead() {
             // Clear origin table
             $('#task_table > tbody').html("");
             // Clear origin DataTable
-            for(var y = 0; y < data.getNumberOfRows();) {
+            for(var y = 0; y < data.getNumberOfRows();)
                 data.removeRow(y);
-            }
 
             // Append row
             for (var i = 0; i < fileData.length; i++) {
@@ -309,6 +250,63 @@ function startRead() {
         }
     });
     reader.readAsText(inputElement.files.item(0));
+}
+/** ----- */
+
+/**
+ *  Exprot file
+ *  Export JSON and image file, include jpg, png, svg
+ */
+
+// downloadJSON
+// Make a link to download the showing chart in JSON file,
+// that can be inport again to this system
+function downloadJSON() {
+    viewData = [];
+    var row = -1;
+    $('#task_table > tbody tr').each(function () {
+        row++;
+        viewData.push({});
+        viewData[row]["id"] = $(this).attr('id');
+        viewData[row]["taskName"] = $(this).find("input[name='taskName']").val();
+        viewData[row]["resource"] = $(this).find("input[name='resource']").val();
+        viewData[row]["startDay"] = $(this).find("input[name='startDay']").val();
+        viewData[row]["endDay"] = $(this).find("input[name='endDay']").val();
+        viewData[row]["duration"] = $(this).find("input[name='duration']").val();
+        viewData[row]["complete"] = $(this).find("input[name='complete']").val();
+    });
+
+    var jsonStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(viewData));
+    var downloadJSONLink = $('#downloadJSON')[0];
+    downloadJSONLink.setAttribute("href", jsonStr);
+    downloadJSONLink.setAttribute("download", "download_document.json");
+    downloadJSONLink.click();
+}
+
+// imageOutput
+// Make links to download the showing chart in image
+function imageOutput() {
+    // console.log('imgout');
+    var svgString = new XMLSerializer().serializeToString(document.querySelector('svg'));
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var DOMURL = self.URL || self.webkitURL || self;
+    var img = new Image();
+    var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+    var url = DOMURL.createObjectURL(svg);
+    var png, jpeg;
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0);
+        png = canvas.toDataURL("image/png");
+        jpeg = canvas.toDataURL("image/jpeg");
+        $("#downloadJPG").attr("href", jpeg);
+        $("#downloadPNG").attr("href", png);
+        DOMURL.revokeObjectURL(png);
+        DOMURL.revokeObjectURL(jpeg);
+    };
+    img.src = url;
+
+    $("#downloadSVG").attr("href", url); 
 }
 /** ----- */
 
@@ -356,8 +354,7 @@ function Start_End_Listener() {
 
 // Duration_Listener
 // Get what row change duration then sync the end day
-function Duration_Listener()
-{
+function Duration_Listener() {
     var tableRows = $("#task_table > tbody > tr").length;
     var taskID;
 
