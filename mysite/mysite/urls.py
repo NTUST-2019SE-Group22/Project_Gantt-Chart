@@ -15,11 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+
 from .views import LoginPage
+from charts.views import api as chart_api
+from charts import views
+
+router = routers.DefaultRouter()
+router.register(r'charts', views.ChartViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path('api/charts/<str:chart_url>/', chart_api, name='chart_api'),
+    path('api/', include(router.urls)),
     path('login/', LoginPage.as_view(), name='login'),
     path('', include('charts.urls')),
 ]

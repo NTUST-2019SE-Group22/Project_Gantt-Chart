@@ -1,12 +1,18 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+
+from rest_framework import viewsets
 
 from .models import Chart
+from .serializers import ChartSerializer
 
 
 # view: chart view page
-def view(request, username, chartname):
-    chart = get_object_or_404(Chart, title=chartname, owner__username=username)
+def view(request, chart_url):
+    chart = get_object_or_404(Chart, permanent_url=chart_url)
     context = {
         'chart': chart,
     }
@@ -15,8 +21,8 @@ def view(request, username, chartname):
 
 # edit: chart edit page
 @login_required
-def edit(request, username, chartname):
-    chart = get_object_or_404(Chart, title=chartname, owner__username=username)
+def edit(request, chart_url):
+    chart = get_object_or_404(Chart, permanent_url=chart_url)
     if request.user != chart.owner:
         # TODO: Direct to ERRMSG PAGE
         return render(request, 'charts/test.html',)
@@ -25,19 +31,9 @@ def edit(request, username, chartname):
     }
     return render(request, 'charts/chart_edit.html', context)
 
-
-# url_direct: provide user a short-link to direct to chart page
-def url_direct(request, url_text):
-    chart = get_object_or_404(Chart, permanent_url=url_text)
-    return redirect(chart.get_absolute_url())
-
-
 # clist: chart list page for user
 @login_required
-def clist(request, username):
-    if request.user.username != username:
-        # TODO: Direct to ERRMSG PAGE
-        return render(request, 'charts/test.html',)
+def clist(request):
     charts = Chart.objects.filter(owner=request.user).order_by('-last_modified')
     context = {
         'charts': charts,
@@ -45,4 +41,33 @@ def clist(request, username):
     return render(request, 'charts/chart_list.html', context)
 
 
+class ChartViewSet(viewsets.ModelViewSet):
+    queryset = Chart.objects.all()
+    serializer_class = ChartSerializer
 
+# TODO: auth
+@csrf_exempt
+def api(request, chart_url):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        chart = Chart.objects.get(permanent_url=chart_url)
+    except Chart.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = ChartSerializer(chart)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = ChartSerializer(chart, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        chart.delete()
+        return HttpResponse(status=204)

@@ -3,14 +3,12 @@ from . import views as chart_views
 
 app_name = 'charts'
 urlpatterns = [
-    # /r/meow/
-    path('r/<str:url_text>/', chart_views.url_direct, name='direct'),
-    # /u/user/
-    path('u/<str:username>/', chart_views.clist, name='list'),
-    # /u/user/ganttchart/
-    path('u/<str:username>/<str:chartname>/', chart_views.view, name='view'),
-    # /u/user/ganttchart/edit/
-    path('u/<str:username>/<str:chartname>/edit/', chart_views.edit, name='edit'),
+    # /accounts/profile/
+    path('accounts/profile/', chart_views.clist, name='list'),
+    # /charts/ganttchart/
+    path('charts/<str:chart_url>/', chart_views.view, name='view'),
+    # /charts/ganttchart/edit/
+    path('charts/<str:chart_url>/edit/', chart_views.edit, name='edit'),
 
     # # /records/
     # path('', views.index, name='index'),
