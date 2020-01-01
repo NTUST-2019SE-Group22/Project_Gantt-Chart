@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-# different in development.py / production.py
+# different in local_settings / production
 
 
 # Password validation
@@ -150,7 +150,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Django mail server
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'ntustganttchart@gmail.com'
-EMAIL_HOST_PASSWORD = 'xxxxxxxxxxxxxxx'
+EMAIL_HOST_USER = '---ENTER YOUR EMAIL HERE---'
+EMAIL_HOST_PASSWORD = '---ENTER YOUR PASSWORD HERE---'
 EMAIL_USE_TLS = 'True'
 EMAIL_POST = '587'
