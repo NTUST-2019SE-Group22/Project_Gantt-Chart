@@ -97,6 +97,7 @@ function daysToMilliseconds(days) {
 // initialChart
 // Initial the data table columns and chart
 function initialChart() {
+    // console.log("initial chart");
     data = new google.visualization.DataTable();
     data.addColumn('string', 'Task ID');
     data.addColumn('string', 'Task Name');
@@ -193,7 +194,7 @@ function show() {
 
 // inputElement: the object of the inport link
 var inputElement = document.getElementById("upload_file");
-inputElement.addEventListener("change", startRead, false);
+inputElement.addEventListener("change", clickRead, false);
 
 // upload file alert
 inputElement.onclick = function(e) {
@@ -202,57 +203,68 @@ inputElement.onclick = function(e) {
         e.preventDefault();
 }
 
-// startRead
-// TODO idk how to explain
-function startRead() {
+// clickRead
+// When click `Import JSON` will run.
+// Filte the input file with only acept JSON file filter.
+function clickRead() {
     var reader = new FileReader();
     reader.addEventListener('load', function () {
         // file type filter
         var ext = inputElement.value.match(/\.([^\.]+)$/)[1];
-        var flag = false;
         switch (ext) {
             case 'json':
-                // accept
-                flag = true;
+                readJSON('file', reader);
                 break;
             default:
                 alert('Please choose a JSON file');
                 inputElement.value = '';
                 break;
         }
-
-        if (flag) {
-            var fileData = this.result;
-            fileData = JSON.parse(fileData);
-            // console.log(fileData);
-            
-            // Clear origin table
-            $('#task_table > tbody').html("");
-            // Clear origin DataTable
-            for(var y = 0; y < data.getNumberOfRows();)
-                data.removeRow(y);
-
-            // Append row
-            for (var i = 0; i < fileData.length; i++) {
-                var obj = fileData[i];
-                // console.log(obj.id);
-                var content = jQuery('#sample_table tr'),
-                    element = null,
-                    element = content.clone();
-                element.attr('id', 'fileTask-' + i);
-                element.find('.close').attr('data-id', 'fileTask-' + i);
-                element.find("input[name='taskName']").val(obj.taskName);
-                element.find("input[name='resource']").val(obj.resource);
-                element.find("input[name='startDay']").val(obj.startDay);
-                element.find("input[name='endDay']").val(obj.endDay);
-                element.find("input[name='duration']").val(obj.duration);
-                element.find("input[name='complete']").val(obj.complete);
-                element.appendTo('#task_table > tbody');
-            }
-            show();
-        }
     });
     reader.readAsText(inputElement.files.item(0));
+}
+
+// readJSON
+// Read the text in JSON format and append row to the front end table
+// `mode`: from DB sync or file input
+// `JSON_text`: the JSON format text
+function readJSON(mode, JSON_text) {
+    // console.log("readJSON mode:", mode);
+    var Data;
+    if (mode == 'file') {
+        Data = JSON_text.result;
+    }
+    else if (mode == 'DB') {
+        Data = JSON_text;
+    }
+    // console.log(this);
+    Data = JSON.parse(Data);
+    // console.log(fileData);
+    
+    // Clear origin table
+    $('#task_table > tbody').html("");
+    // Clear origin DataTable
+    for(var y = 0; y < data.getNumberOfRows();)
+        data.removeRow(y);
+
+    // Append row
+    for (var i = 0; i < Data.length; i++) {
+        var obj = Data[i];
+        // console.log(obj.id);
+        var content = jQuery('#sample_table tr'),
+            element = null,
+            element = content.clone();
+        element.attr('id', 'fileTask-' + i);
+        element.find('.close').attr('data-id', 'fileTask-' + i);
+        element.find("input[name='taskName']").val(obj.taskName);
+        element.find("input[name='resource']").val(obj.resource);
+        element.find("input[name='startDay']").val(obj.startDay);
+        element.find("input[name='endDay']").val(obj.endDay);
+        element.find("input[name='duration']").val(obj.duration);
+        element.find("input[name='complete']").val(obj.complete);
+        element.appendTo('#task_table > tbody');
+    }
+    show();
 }
 /** ----- */
 

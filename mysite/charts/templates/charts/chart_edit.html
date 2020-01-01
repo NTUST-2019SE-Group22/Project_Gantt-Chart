@@ -139,20 +139,25 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <script src="{% static 'charts/chart_control.js' %}"></script>
 <script>
-    let link = '{{ chart.get_api_url}}';
-    function delete_chart(chart_id){
-        chart_id = '#chart-' + chart_id.toString();
-            // $.ajax({
-            //     url: link,
-            //     type: 'DELETE',
-            //     success: function(result) {
+    let link = '{{ chart.get_api_url }}';
+    window.addEventListener("load", function() {
+        // chart = '{{ chart.tasks }}';
+        // chart = unescape(chart);
+        // console.log(chart);
+        // console.log(chart[2]);
 
-            //     }
-            // }).done(function () {
-            //     console.log('#chart-'+ chart_id.toString());
-            //         $(chart_id).remove();
-            //     }
-            // )
-        }
+        // load chart in JSON format to frontend
+        $.ajax({
+            url: link,
+            type: 'GET',
+            success: function(result) {
+                // console.log(result);
+                console.log(result.tasks);
+                readJSON('DB', result.tasks);
+            }
+        }).done(function () {
+            }
+        )
+    });
 </script>
 {% endblock %}
