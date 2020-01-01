@@ -42,3 +42,6 @@ class Chart(models.Model):
 
     def get_edit_url(self):
         return reverse('charts:edit', args=[self.permanent_url])
+
+    def get_api_url(self):
+        return reverse('chart_api', args=[self.permanent_url])
