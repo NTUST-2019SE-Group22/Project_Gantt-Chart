@@ -1,0 +1,110 @@
+
+        <div class="col-12 d-flex flex-column mb-3">
+            <div id="data-table">
+                <form class="needs-validation" novalidate>
+                    <table id="task_table" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Task Name</th>
+                                <th scope="col">Resource</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Complete %</th>
+                                <!--<th scope="col">Dependencies</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="task-1">
+                                <th scope="row" class="align-middle">
+                                    <button type="button" class="close" data-id="task-1" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </th>
+                                <td>
+                                    <div class="input-grup">
+                                        <input class="form-control" type="text" name="taskName" required>
+                                        <div class="invalid-feedback">
+                                            Please type a task name.
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><input class="form-control" type="text" name="resource" placeholder="Optional"></td>
+                                <td>
+                                    <div class="input-grup">
+                                        <input class="form-control" type="date" name="startDay" onchange="Start_End_Listener()" required>
+                                        <div class="invalid-feedback">
+                                            Please choose a start day.
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-grup">
+                                        <input class="form-control" type="date" name="endDay" onchange="Start_End_Listener()" required>
+                                        <div class="invalid-feedback">
+                                            Please choose an eny day(after start day).
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-grup">
+                                        <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" onchange="Duration_Listener()" required>
+                                        <div class="invalid-feedback">
+                                            Please set the duration.
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
+                                <!--<td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div style="display:none;">
+                    <table id="sample_table">
+                        <tr id="">
+                            <th scope="row" class="align-middle">
+                                <button type="button" class="close" data-id="0" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </th>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="text" name="taskName" required>
+                                    <div class="invalid-feedback">
+                                        Please type a task name.
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input class="form-control" type="text" name="resource" placeholder="Optional"></td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="date" name="startDay" onchange="Start_End_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please choose a start Day.
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="date" name="endDay" onchange="Start_End_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please choose a eny day(after start day).
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" onchange="Duration_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please set the duration.
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>

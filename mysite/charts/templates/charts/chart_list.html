@@ -1,18 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ chart.title }}</title>
-</head>
-<body>
-{% for chart in charts %}
-{{ chart.title }}<br>
-{{ chart.owner.username }}<br>
-{{ chart.last_modified }}<br>
-{{ chart.tasks }}<br>
-<a href="{% url 'charts:direct' chart.permanent_url %}">{{ chart.permanent_url }}</a><br>
-<a href="{{ chart.get_absolute_url }}">{{ chart.get_absolute_url }}</a><br>
-<hr>
+{% extends "account/layout_card.html" %}
+
+{% block head_title %}Chart List{% endblock %}
+
+{% block content %}
+<div class="d-flex border-bottom border-gray ">
+      <h5 class="card-title pb-2 mb-0 mr-auto">
+    Chart List
+  </h5>
+    <a href="#" class="badge badge-primary my-auto"><i class="fas fa-plus-circle"></i> Add New</a>
+</div>
+
+    {% for chart in charts %}
+            <div class="media text-muted pt-3" id="chart-{{ chart.permanent_url }}">
+                <p class="media-body pb-2 mb-0 small lh-125 border-bottom border-gray">
+                    <a href="{{ chart.get_absolute_url }}"><strong class="d-block text-gray-dark">{{ chart.title }}</strong></a>
+                    Last Modified：{{ chart.last_modified }}
+                    <small class="d-block text-right mt-2">
+<a href="{{ chart.get_absolute_url }}" class="badge badge-secondary"><i class="fas fa-eye"></i> View</a>
+<a href="{{ chart.get_edit_url }}" class="badge badge-success"><i class="far fa-edit"></i> Edit</a>
+<a href="javascript:;"  onclick="delete_chart('{{ chart.permanent_url }}')" class="badge badge-danger"><i class="far fa-trash-alt"></i> Delete</a>
+            </small>
+                </p>
+            </div>
+
 {% endfor %}
-</body>
-</html>
+{% endblock %}
+
+{% block script %}
+<script>
+    function delete_chart(chart_id){
+        let username = '{{ user.username }}';
+        let confirm_ = confirm('Are you sure to delete this chart?');
+        if(confirm_){
+            let link = '/api/charts/' + chart_id.toString() + '/';
+            chart_id = '#chart-' + chart_id.toString();
+            $.ajax({
+                url: link,
+                type: 'DELETE',
+                success: function(result) {
+
+                }
+            }).done(function () {
+                console.log('#chart-'+ chart_id.toString());
+                    $(chart_id).remove();
+                }
+            )}
+        }
+</script>
+{% endblock %}
