@@ -13,14 +13,14 @@
 
   <title>{% block head_title %}{% endblock %}</title>
 
-  {% include 'account/parts/bootstrap.html' %}
+  {% include 'account/part/bootstrap.html' %}
 
   {% block custom_css %}
     <link href="{% static 'accounts/allauth-bootstrap4.css' %}" rel="stylesheet">
     <link href="{% static 'accounts/offcanvas.css' %}" rel="stylesheet">
   {% endblock %}
 
-  {% include 'account/parts/head.html' %}
+  {% include 'account/part/head.html' %}
 </head>
 
 <body class="bg-light">
