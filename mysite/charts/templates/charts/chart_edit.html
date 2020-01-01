@@ -1,18 +1,158 @@
-{% extends "account/layout_card.html" %}
+{% extends "charts/chart_base.html" %}
+{% load static %}
 
 {% block head_title %}Edit: {{ chart.title }}{% endblock %}
 
 {% block content %}
-{% include 'charts/task_table.html' %}
-{{ chart.title }}<br>
-{{ chart.owner.username }}<br>
-{{ chart.last_modified }}<br>
-{{ chart.tasks }}<br>
-{{ chart.permanent_url }}<br>
-<a href="{{ chart.get_absolute_url }}">{{ chart.get_absolute_url }}</a>
+<!-- chart here -->
+<div class="col-12">
+    <div>
+        <div ondblclick="editOnClick(this)">{{ chart.title }}</div>
+    </div>
+    <div id="chart_div"></div>
+    <canvas id="canvas" style="display: none;"></canvas>
+  </div>
+{% endblock %}
 
+{% block table %}
+<div class="my-3 p-3 bg-white rounded box-shadow">
+      <!-- table here -->
+      <div class="col-12 d-flex flex-column mb-3">
+        <div>
+            <form id="data-table" class="needs-validation" novalidate>
+                <table id="task_table" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Task Name</th>
+                            <th scope="col">Resource</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Complete %</th>
+                            <!--<th scope="col">Dependencies</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="task-1">
+                            <th scope="row" class="align-middle">
+                                <button type="button" class="close" data-id="task-1" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </th>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="text" name="taskName" required>
+                                    <div class="invalid-feedback">
+                                        Please type a task name.
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input class="form-control" type="text" name="resource" placeholder="Optional"></td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="date" name="startDay" onchange="Start_End_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please choose a start day.
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="date" name="endDay" onchange="Start_End_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please choose an eny day(after start day).
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-grup">
+                                    <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" onchange="Duration_Listener()" required>
+                                    <div class="invalid-feedback">
+                                        Please set the duration.
+                                    </div>
+                                </div>
+                            </td>
+                            <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
+                            <!--<td><input class="form-control" type="number" min="0" max="100" placeholder="Optional"></td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <div style="display:none;">
+                <table id="sample_table">
+                    <tr id="">
+                        <th scope="row" class="align-middle">
+                            <button type="button" class="close" data-id="0" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </th>
+                        <td>
+                            <div class="input-grup">
+                                <input class="form-control" type="text" name="taskName" required>
+                                <div class="invalid-feedback">
+                                    Please type a task name.
+                                </div>
+                            </div>
+                        </td>
+                        <td><input class="form-control" type="text" name="resource" placeholder="Optional"></td>
+                        <td>
+                            <div class="input-grup">
+                                <input class="form-control" type="date" name="startDay" onchange="Start_End_Listener()" required>
+                                <div class="invalid-feedback">
+                                    Please choose a start Day.
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-grup">
+                                <input class="form-control" type="date" name="endDay" onchange="Start_End_Listener()" required>
+                                <div class="invalid-feedback">
+                                    Please choose a eny day(after start day).
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-grup">
+                                <input class="form-control" type="number" min="1" placeholder="Optional" name="duration" onchange="Duration_Listener()" required>
+                                <div class="invalid-feedback">
+                                    Please set the duration.
+                                </div>
+                            </div>
+                        </td>
+                        <td><input class="form-control" type="number" min="0" max="100" placeholder="Optional" name="complete"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{ chart.title }}<br>
+    {{ chart.owner.username }}<br>
+    {{ chart.last_modified }}<br>
+    {{ chart.tasks }}<br>
+    {{ chart.permanent_url }}<br>
+    <a href="{{ chart.get_absolute_url }}">{{ chart.get_absolute_url }}</a>
+</div>
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <script src="{% static 'charts/chart_control.js' %}"></script>
+<script>
+    let link = '{{ chart.get_api_url}}';
+    function delete_chart(chart_id){
+        chart_id = '#chart-' + chart_id.toString();
+            // $.ajax({
+            //     url: link,
+            //     type: 'DELETE',
+            //     success: function(result) {
 
+            //     }
+            // }).done(function () {
+            //     console.log('#chart-'+ chart_id.toString());
+            //         $(chart_id).remove();
+            //     }
+            // )
+        }
+</script>
 {% endblock %}

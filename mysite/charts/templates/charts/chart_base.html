@@ -1,0 +1,17 @@
+{% extends "account/layout_card.html" %}
+{% load static %}
+
+{% block subnavbar %}
+<div class="nav-scroller bg-white box-shadow">
+    <nav class="nav nav-underline">
+      <label class="nav-link active" id="add-row">Add new Task</label>
+      <label class="nav-link active"><input id="upload_file" style="display:none;" type="file" accept=".json">Import JSON</label>
+      <label class="nav-link active" href="" onclick="downloadJSON()">Export JSON</label>
+      <a id="downloadJSON" style="display:none"></a>
+      <!-- <button onclick="imageOutput()">test</button> -->
+      <a class="nav-link active" href="" download="chart.svg" id="downloadSVG" onclick="imageOutput()">Export SVG</a>
+      <a class="nav-link active" href="" download="chart.png" id="downloadPNG" onclick="imageOutput()">Export PNG</a>
+      <a class="nav-link active" href="" download="chart.jpg" id="downloadJPG" onclick="imageOutput()">Export JPG</a>
+    </nav>
+</div>
+{% endblock %}
