@@ -41,6 +41,13 @@ def clist(request):
     return render(request, 'charts/chart_list.html', context)
 
 
+@login_required
+def create(request):
+    chart = Chart.objects.create(owner=request.user)
+    chart.save()
+    return redirect(chart)
+
+
 class ChartViewSet(viewsets.ModelViewSet):
     queryset = Chart.objects.all()
     serializer_class = ChartSerializer

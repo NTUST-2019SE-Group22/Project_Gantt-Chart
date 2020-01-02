@@ -5,9 +5,11 @@ app_name = 'charts'
 urlpatterns = [
     # /accounts/profile/
     path('accounts/profile/', chart_views.clist, name='list'),
-    # /charts/ganttchart/
+    # /charts/create/
+    path('charts/create/', chart_views.create, name='create'),
+    # /charts/ganttc/
     path('charts/<str:chart_url>/', chart_views.view, name='view'),
-    # /charts/ganttchart/edit/
+    # /charts/ganttc/edit/
     path('charts/<str:chart_url>/edit/', chart_views.edit, name='edit'),
 
     # # /records/
