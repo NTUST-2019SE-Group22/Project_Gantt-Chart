@@ -8,8 +8,9 @@
 <div class="col-12 overflow-auto">
 {% if request.user.is_authenticated %}
     <div>
-        <div id="chartName" ondblclick="editOnClick(this)">{{ chart.title }}</div>
+        <h5 id="chartName" ondblclick="editOnClick(this)">{{ chart.title }}</h5>
     </div>
+    <div class="text-muted">Last saved time: <span id="last_modified">{{ chart.last_modified }}</span>.</div>
     {% else %}
     <h5>Example Gantt Chart (Free Trail)</h5>
     {% endif %}

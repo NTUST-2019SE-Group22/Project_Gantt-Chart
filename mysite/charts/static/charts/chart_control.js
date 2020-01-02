@@ -303,7 +303,7 @@ function readJSON_To_Back(mode) {
         jsonStr = JSON.stringify(viewData);
         // console.log(jsonStr);
         // console.log(typeof(jsonStr));
-        console.log(chartName);
+        // console.log(chartName);
         var syncData = {tasks: jsonStr};
         
         $.ajax({
@@ -317,6 +317,8 @@ function readJSON_To_Back(mode) {
                 // console.log('put SUCCESS');
                 // console.log(data);
                 // console.log(result);
+                var saved_time = new Date(result.last_modified);
+                $('#last_modified').text(saved_time.toString());
             },
         }).done(function () {
             // console.log('done');
@@ -487,8 +489,11 @@ function editOnClick(element) {
             data: JSON.stringify(syncData), // access in body
             success: function(result) {
                 console.log('put SUCCESS');
-                console.log(data);
+                // console.log(data);
+                // console.log("hello");
                 // console.log(result);
+                var saved_time = new Date(result.last_modified);
+                $('#last_modified').text(saved_time.toString());
             },
         }).done(function () {
             console.log('done');
