@@ -1,0 +1,32 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block head_title %}Gantt Chart Editor{% endblock %}
+{% block body %}
+<style>
+    html, body {
+        padding: 0;
+        height: 100%; /* needed for container min-height */
+        background-color: white;
+    }
+    main, div#container {
+        position: relative; /* needed for footer positioning*/
+        height: auto !important; /* real browsers */
+        min-height: 100%; /* real browsers */
+    }
+</style>
+<main role="main" class="d-flex align-items-center" style="background-color: white;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+            <img class="img-fluid mx-auto animated fadeIn delay-02s" src="{% static 'charts/chart.png' %}" alt="Chart Example">
+          </div>
+          <div class="col-lg-3">
+            <h1 class="animated fadeIn delay-02s">GCE</h1>
+            <h3 class="text-muted animated fadeInUp delay-07s">The fast and convenient gantt chart system.</h3>
+            <p class="lead animated fadeInUp delay-07s">This system provide fast create a gantt chart and share to other. </p>
+              <a role="button" class="btn btn-lg btn-outline-dark float-right animated fadeInUp delay-15s" href="{% url 'charts:chart' %}" >Try it!! »</a>
+          </div>
+        </div>
+      </div>
+    </main>
+{% endblock %}

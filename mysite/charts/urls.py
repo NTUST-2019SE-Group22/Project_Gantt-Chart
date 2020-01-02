@@ -3,6 +3,8 @@ from . import views as chart_views
 
 app_name = 'charts'
 urlpatterns = [
+    # /
+    path('', chart_views.index, name='index'),
     # /about/
     path('about/', chart_views.about, name='about'),
     # /charts/
