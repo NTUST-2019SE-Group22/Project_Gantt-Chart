@@ -19,15 +19,16 @@ class Chart(models.Model):
     title = models.CharField(max_length=100, default=datetime.now)
     last_modified = models.DateTimeField(auto_now=True)
     tasks = models.TextField(blank=True, null=True)
-    permanent_url = models.CharField(max_length=6, blank=True, null=True)
+    permanent_url = models.CharField(max_length=6, default='______')
 
     def save(self, *args, **kwargs):
-        if not self.permanent_url:
-            new_id = base64.b64encode(hashlib.md5((str(self.created_at) + HASH_SALT).encode('utf-8')).digest(),
+        if self.permanent_url == '______':
+            new_id = ' '
+            while True:
+                new_id = base64.b64encode(hashlib.md5((str(datetime.now) + HASH_SALT).encode('utf-8')).digest(),
                                       altchars=b"ab")[:6].decode("utf-8")
-            while Chart.objects.filter(permanent_url=new_id).exists():
-                new_id = base64.b64encode(hashlib.md5((str(self.created_at) + HASH_SALT).encode('utf-8')).digest(),
-                                          altchars=b"ab")[:6].decode("utf-8")
+                if not Chart.objects.filter(permanent_url=new_id).exists():
+                    break
             self.permanent_url = new_id
         else:
             pass
