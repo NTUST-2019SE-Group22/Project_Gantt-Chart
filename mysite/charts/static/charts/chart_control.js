@@ -184,6 +184,9 @@ function show() {
     var svgHeight = $('svg').attr("height");
     $("#canvas").attr({width: svgWidth, height: svgHeight});
     $("#chart_container").addClass("bg-white box-shadow");
+    
+    // SYNC to DB
+    readJSON_To_Back('DB');
 }
 /** ----- */
 

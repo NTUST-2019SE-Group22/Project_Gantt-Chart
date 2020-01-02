@@ -132,7 +132,6 @@
     {{ chart.tasks }}<br>
     {{ chart.permanent_url }}<br>
     <a href="{{ chart.get_absolute_url }}">{{ chart.get_absolute_url }}</a>
-    <button onclick="testput()">test</button>
 </div>
 {% endblock %}
 
@@ -157,30 +156,5 @@
             }
         )
     });
-
-    function testput() {
-        console.log("click");
-        // chartName = $("#chartName").val();
-        // taskJSON = "";
-        // var testdata = {title: chartName, tasks:""};
-        // $.ajax({
-        //     type: 'PUT',
-        //     method: 'PUT',
-        //     url: link,
-        //     contentType: 'application/json',
-        //     data: JSON.stringify(testdata), // access in body
-        //     // data: testdata,
-        //     success: function(result) {
-        //         console.log('put SUCCESS');
-        //         console.log(data);
-        //         console.log(result);
-        //     },
-        // }).done(function () {
-        //     console.log('done');
-        // }).fail(function (msg) {
-        //     console.log('FAIL');
-        // });
-        readJSON_To_Back('DB');
-    }
 </script>
 {% endblock %}
