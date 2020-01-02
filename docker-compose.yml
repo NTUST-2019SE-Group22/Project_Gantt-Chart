@@ -2,7 +2,7 @@ version: '3.5'
 services:
 
   nginx:
-    container_name: dehe-nginx
+    container_name: gantt-nginx
     build: ./nginx
     restart: always
     volumes:
@@ -16,11 +16,11 @@ services:
       - VIRTUAL_HOST=gantt.cch.nctu.me
       - VIRTUAL_NETWORK=nginx-proxy
       - VIRTUAL_PORT=80
-      - LETSENCRYPT_HOST=rec.cch.nctu.me
-      - LETSENCRYPT_EMAIL=chiachun2491+letsencrypt@gmail.com
+      - LETSENCRYPT_HOST=gantt.cch.nctu.me
+      - LETSENCRYPT_EMAIL=ntustganttchart+letsencrypt@gmail.com
 
   django:
-    container_name: dehe-django
+    container_name: gantt-django
     build: ./mysite
     restart: always
     command: uwsgi --ini uwsgi.ini
@@ -34,7 +34,7 @@ services:
       - db
 
   db:
-    container_name: dehe-postgres
+    container_name: gantt-postgres
     restart: always
     ports:
       - "5432"
