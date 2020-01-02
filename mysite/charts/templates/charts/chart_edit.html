@@ -7,7 +7,7 @@
 <!-- chart here -->
 <div class="col-12">
     <div>
-        <div ondblclick="editOnClick(this)">{{ chart.title }}</div>
+        <div id="chartName" ondblclick="editOnClick(this)">{{ chart.title }}</div>
     </div>
     <div id="chart_div"></div>
     <canvas id="canvas" style="display: none;"></canvas>
@@ -151,7 +151,7 @@
                 console.log("result", result);
                 // console.log("data", data);
                 // console.log(result.tasks);
-                readJSON('DB', result.tasks);
+                readJSON_To_Front('DB', result.tasks);
             }
         }).done(function () {
             }
@@ -160,24 +160,27 @@
 
     function testput() {
         console.log("click");
-        var testdata = {tasks:"[{\"id\":\"fileTask-0\",\"taskName\":\"Task 1\",\"resource\":\"A\",\"startDay\":\"2019-07-01\",\"endDay\":\"2019-07-02\",\"duration\":\"1\",\"complete\":\"50\"},{\"id\":\"fileTask-1\",\"taskName\":\"Task 3\",\"resource\":\"B\",\"startDay\":\"2019-07-04\",\"endDay\":\"2019-07-07\",\"duration\":\"3\",\"complete\":\"25\"},{\"id\":\"task-2\",\"taskName\":\"task4\",\"resource\":\"\",\"startDay\":\"2019-07-17\",\"endDay\":\"2019-07-19\",\"duration\":\"2\",\"complete\":\"\"}]"};
-        $.ajax({
-            type: 'PUT',
-            method: 'PUT',
-            url: link,
-            contentType: 'application/json',
-            data: JSON.stringify(testdata), // access in body
-            // data: testdata,
-            success: function(result) {
-                console.log('put SUCCESS');
-                console.log(data);
-                console.log(result);
-            },
-        }).done(function () {
-            console.log('done');
-        }).fail(function (msg) {
-            console.log('FAIL');
-        });
+        // chartName = $("#chartName").val();
+        // taskJSON = "";
+        // var testdata = {title: chartName, tasks:""};
+        // $.ajax({
+        //     type: 'PUT',
+        //     method: 'PUT',
+        //     url: link,
+        //     contentType: 'application/json',
+        //     data: JSON.stringify(testdata), // access in body
+        //     // data: testdata,
+        //     success: function(result) {
+        //         console.log('put SUCCESS');
+        //         console.log(data);
+        //         console.log(result);
+        //     },
+        // }).done(function () {
+        //     console.log('done');
+        // }).fail(function (msg) {
+        //     console.log('FAIL');
+        // });
+        readJSON_To_Back('DB');
     }
 </script>
 {% endblock %}

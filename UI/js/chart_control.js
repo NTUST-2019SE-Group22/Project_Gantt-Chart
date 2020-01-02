@@ -339,12 +339,13 @@ function Start_End_Listener() {
     for(var i = 1; i <= tableRows; i++) {
         var temp = '#task_table > tbody > tr:nth-child(' + i + ')';
         taskID = $(temp).attr("id");
+        console.log(taskID);
         if (taskID == $(':focus').get(0).parentElement.parentElement.parentElement.id) {
             taskID = '#' + taskID;
             break;
         }
     }
-    // console.log(taskID);
+    
     var startDay = $(taskID).find('input[name="startDay"]').val();
     var endDay = $(taskID).find('input[name="endDay"]').val();
 
