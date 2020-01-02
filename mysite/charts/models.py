@@ -23,9 +23,9 @@ class Chart(models.Model):
 
     def save(self, *args, **kwargs):
         if self.permanent_url == '______':
-            new_id = ' '
+            new_id = str(datetime.now)
             while True:
-                new_id = base64.b64encode(hashlib.md5((str(datetime.now) + HASH_SALT).encode('utf-8')).digest(),
+                new_id = base64.b64encode(hashlib.md5((new_id + HASH_SALT).encode('utf-8')).digest(),
                                       altchars=b"ab")[:6].decode("utf-8")
                 if not Chart.objects.filter(permanent_url=new_id).exists():
                     break
