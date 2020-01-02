@@ -16,7 +16,7 @@ def view(request, chart_url):
     context = {
         'chart': chart,
     }
-    return render(request, 'charts/chart_edit.html', context)
+    return render(request, 'charts/chart_view.html', context)
 
 
 # edit: chart edit page
