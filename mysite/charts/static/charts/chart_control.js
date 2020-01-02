@@ -303,26 +303,25 @@ function readJSON_To_Back(mode) {
         jsonStr = JSON.stringify(viewData);
         // console.log(jsonStr);
         // console.log(typeof(jsonStr));
-        chartName = $("#chartName").text();
         console.log(chartName);
-        var testdata = {title: chartName, tasks: jsonStr};
+        var syncData = {tasks: jsonStr};
         
         $.ajax({
             type: 'PUT',
             method: 'PUT',
             url: link,
             contentType: 'application/json',
-            data: JSON.stringify(testdata), // access in body
+            data: JSON.stringify(syncData), // access in body
             // data: testdata,
             success: function(result) {
-                console.log('put SUCCESS');
-                console.log(data);
-                console.log(result);
+                // console.log('put SUCCESS');
+                // console.log(data);
+                // console.log(result);
             },
         }).done(function () {
-            console.log('done');
+            // console.log('done');
         }).fail(function (msg) {
-            console.log('FAIL');
+            // console.log('FAIL');
         });
     }
 }
@@ -477,5 +476,25 @@ function editOnClick(element) {
             element.setAttribute("style","");
             newobj.remove();
         }
+
+        chartName = $("#chartName").text();
+        syncData = {title: chartName};
+        $.ajax({
+            type: 'PUT',
+            method: 'PUT',
+            url: link,
+            contentType: 'application/json',
+            data: JSON.stringify(syncData), // access in body
+            success: function(result) {
+                console.log('put SUCCESS');
+                console.log(data);
+                // console.log(result);
+            },
+        }).done(function () {
+            console.log('done');
+        }).fail(function (msg) {
+            // console.log('FAIL');
+        });
     }
+    
 }
