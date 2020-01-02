@@ -10,6 +10,11 @@ from .models import Chart
 from .serializers import ChartSerializer
 
 
+# about: project info
+def about(request):
+    return render(request, 'charts/about.html')
+
+
 # view: chart view page
 def view(request, chart_url):
     chart = get_object_or_404(Chart, permanent_url=chart_url)
