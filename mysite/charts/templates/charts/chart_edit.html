@@ -132,6 +132,7 @@
     {{ chart.tasks }}<br>
     {{ chart.permanent_url }}<br>
     <a href="{{ chart.get_absolute_url }}">{{ chart.get_absolute_url }}</a>
+    <button onclick="testput()">test</button>
 </div>
 {% endblock %}
 
@@ -141,23 +142,42 @@
 <script>
     let link = '{{ chart.get_api_url }}';
     window.addEventListener("load", function() {
-        // chart = '{{ chart.tasks }}';
-        // chart = unescape(chart);
-        // console.log(chart);
-        // console.log(chart[2]);
-
         // load chart in JSON format to frontend
         $.ajax({
             url: link,
             type: 'GET',
             success: function(result) {
-                // console.log(result);
-                console.log(result.tasks);
+                console.log("get");
+                console.log("result", result);
+                // console.log("data", data);
+                // console.log(result.tasks);
                 readJSON('DB', result.tasks);
             }
         }).done(function () {
             }
         )
     });
+
+    function testput() {
+        console.log("click");
+        var testdata = {tasks:"[{\"id\":\"fileTask-0\",\"taskName\":\"Task 1\",\"resource\":\"A\",\"startDay\":\"2019-07-01\",\"endDay\":\"2019-07-02\",\"duration\":\"1\",\"complete\":\"50\"},{\"id\":\"fileTask-1\",\"taskName\":\"Task 3\",\"resource\":\"B\",\"startDay\":\"2019-07-04\",\"endDay\":\"2019-07-07\",\"duration\":\"3\",\"complete\":\"25\"},{\"id\":\"task-2\",\"taskName\":\"task4\",\"resource\":\"\",\"startDay\":\"2019-07-17\",\"endDay\":\"2019-07-19\",\"duration\":\"2\",\"complete\":\"\"}]"};
+        $.ajax({
+            type: 'PUT',
+            method: 'PUT',
+            url: link,
+            contentType: 'application/json',
+            data: JSON.stringify(testdata), // access in body
+            // data: testdata,
+            success: function(result) {
+                console.log('put SUCCESS');
+                console.log(data);
+                console.log(result);
+            },
+        }).done(function () {
+            console.log('done');
+        }).fail(function (msg) {
+            console.log('FAIL');
+        });
+    }
 </script>
 {% endblock %}
