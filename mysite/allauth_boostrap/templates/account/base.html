@@ -14,9 +14,9 @@
   <title>{% block head_title %}{% endblock %}</title>
 
   {% include 'account/part/bootstrap.html' %}
+  {% include 'account/part/animate.html' %}
 
   {% block custom_css %}
-    <link href="{% static 'accounts/allauth-bootstrap4.css' %}" rel="stylesheet">
     <link href="{% static 'accounts/offcanvas.css' %}" rel="stylesheet">
   {% endblock %}
 
@@ -24,6 +24,11 @@
 </head>
 
 <body class="bg-light">
+
+<header>
+  {% include 'account/part/header.html' %}
+  {% block subnavbar %}{% endblock %}
+  </header>
 
 {% block body %}
 {% endblock %}
