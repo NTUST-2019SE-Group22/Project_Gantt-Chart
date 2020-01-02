@@ -8,7 +8,7 @@
 <div class="col-12 overflow-auto">
 {% if request.user.is_authenticated %}
     <div>
-        <div ondblclick="editOnClick(this)">{{ chart.title }}</div>
+        <div id="chartName" ondblclick="editOnClick(this)">{{ chart.title }}</div>
     </div>
     {% else %}
     <h5>Example Gantt Chart (Free Trail)</h5>
@@ -139,19 +139,16 @@
 <script>
     let link = '{{ chart.get_api_url }}';
     window.addEventListener("load", function() {
-        // chart = '{{ chart.tasks }}';
-        // chart = unescape(chart);
-        // console.log(chart);
-        // console.log(chart[2]);
-
         // load chart in JSON format to frontend
         $.ajax({
             url: link,
             type: 'GET',
             success: function(result) {
-                // console.log(result);
-                console.log(result.tasks);
-                readJSON('DB', result.tasks);
+                console.log("get");
+                console.log("result", result);
+                // console.log("data", data);
+                // console.log(result.tasks);
+                readJSON_To_Front('DB', result.tasks);
             }
         }).done(function () {
             }

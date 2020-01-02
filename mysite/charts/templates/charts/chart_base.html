@@ -7,7 +7,7 @@
       <label class="nav-link active" id="add-row">Add new Task</label>
         {% if request.user.is_authenticated %}
       <label class="nav-link active"><input id="upload_file" style="display:none;" type="file" accept=".json">Import JSON</label>
-      <label class="nav-link active" href="" onclick="downloadJSON()">Export JSON</label>
+      <label class="nav-link active" href="" onclick="readJSON_To_Back('file')">Export JSON</label>
       <a id="downloadJSON" style="display:none"></a>
         {% else %}
         <label class="nav-link inactive disabled">Import JSON</label>

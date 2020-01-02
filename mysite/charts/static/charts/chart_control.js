@@ -184,6 +184,9 @@ function show() {
     var svgHeight = $('svg').attr("height");
     $("#canvas").attr({width: svgWidth, height: svgHeight});
     $("#chart_container").addClass("bg-white box-shadow");
+    
+    // SYNC to DB
+    readJSON_To_Back('DB');
 }
 /** ----- */
 
@@ -213,7 +216,7 @@ function clickRead() {
         var ext = inputElement.value.match(/\.([^\.]+)$/)[1];
         switch (ext) {
             case 'json':
-                readJSON('file', reader);
+                readJSON_To_Front('file', reader);
                 break;
             default:
                 alert('Please choose a JSON file');
@@ -224,11 +227,11 @@ function clickRead() {
     reader.readAsText(inputElement.files.item(0));
 }
 
-// readJSON
+// readJSON_To_Front
 // Read the text in JSON format and append row to the front end table
 // `mode`: from DB sync or file input
 // `JSON_text`: the JSON format text
-function readJSON(mode, JSON_text) {
+function readJSON_To_Front(mode, JSON_text) {
     // console.log("readJSON mode:", mode);
     var Data;
     if (mode == 'file') {
@@ -276,7 +279,7 @@ function readJSON(mode, JSON_text) {
 // downloadJSON
 // Make a link to download the showing chart in JSON file,
 // that can be inport again to this system
-function downloadJSON() {
+function readJSON_To_Back(mode) {
     viewData = [];
     var row = -1;
     $('#task_table > tbody tr').each(function () {
@@ -291,7 +294,39 @@ function downloadJSON() {
         viewData[row]["complete"] = $(this).find("input[name='complete']").val();
     });
 
-    var jsonStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(viewData));
+    var jsonStr;
+    if (mode == 'file') {
+        jsonStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(viewData));
+        downloadJSON(jsonStr);
+    }
+    else if (mode == 'DB') {
+        jsonStr = JSON.stringify(viewData);
+        // console.log(jsonStr);
+        // console.log(typeof(jsonStr));
+        console.log(chartName);
+        var syncData = {tasks: jsonStr};
+        
+        $.ajax({
+            type: 'PUT',
+            method: 'PUT',
+            url: link,
+            contentType: 'application/json',
+            data: JSON.stringify(syncData), // access in body
+            // data: testdata,
+            success: function(result) {
+                // console.log('put SUCCESS');
+                // console.log(data);
+                // console.log(result);
+            },
+        }).done(function () {
+            // console.log('done');
+        }).fail(function (msg) {
+            // console.log('FAIL');
+        });
+    }
+}
+
+function downloadJSON(jsonStr) {
     var downloadJSONLink = $('#downloadJSON')[0];
     downloadJSONLink.setAttribute("href", jsonStr);
     downloadJSONLink.setAttribute("download", "download_document.json");
@@ -441,5 +476,25 @@ function editOnClick(element) {
             element.setAttribute("style","");
             newobj.remove();
         }
+
+        chartName = $("#chartName").text();
+        syncData = {title: chartName};
+        $.ajax({
+            type: 'PUT',
+            method: 'PUT',
+            url: link,
+            contentType: 'application/json',
+            data: JSON.stringify(syncData), // access in body
+            success: function(result) {
+                console.log('put SUCCESS');
+                console.log(data);
+                // console.log(result);
+            },
+        }).done(function () {
+            console.log('done');
+        }).fail(function (msg) {
+            // console.log('FAIL');
+        });
     }
+    
 }
