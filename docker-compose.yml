@@ -1,0 +1,55 @@
+version: '3.5'
+services:
+
+  nginx:
+    container_name: dehe-nginx
+    build: ./nginx
+    restart: always
+    volumes:
+      - django_data:/docker_django
+      - ./log:/var/log/nginx
+    networks:
+      - proxy
+    depends_on:
+      - django
+    environment:
+      - VIRTUAL_HOST=gantt.cch.nctu.me
+      - VIRTUAL_NETWORK=nginx-proxy
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=rec.cch.nctu.me
+      - LETSENCRYPT_EMAIL=chiachun2491+letsencrypt@gmail.com
+
+  django:
+    container_name: dehe-django
+    build: ./mysite
+    restart: always
+    command: uwsgi --ini uwsgi.ini
+    volumes:
+      - django_data:/docker_django
+      - ./media:/docker_django/media/
+    networks:
+      - proxy
+      - default
+    depends_on:
+      - db
+
+  db:
+    container_name: dehe-postgres
+    restart: always
+    ports:
+      - "5432"
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password123
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/
+
+volumes:
+  # api_data:
+  django_data:
+  # pgdata:
+
+networks:
+  proxy:
+    external:
+      name: self-nginx-proxy
