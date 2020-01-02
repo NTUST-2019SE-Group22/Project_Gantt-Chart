@@ -31,21 +31,24 @@ def edit(request, chart_url):
     }
     return render(request, 'charts/chart_edit.html', context)
 
-# clist: chart list page for user
-@login_required
-def clist(request):
-    charts = Chart.objects.filter(owner=request.user).order_by('-last_modified')
-    context = {
-        'charts': charts,
-    }
-    return render(request, 'charts/chart_list.html', context)
-
 
 @login_required
 def create(request):
     chart = Chart.objects.create(owner=request.user)
     chart.save()
     return redirect(chart)
+
+
+# chart: chart list page for user / chart free trail page for guest
+def chart(request):
+    if request.user.is_authenticated:
+        charts = Chart.objects.filter(owner=request.user).order_by('-last_modified')
+        context = {
+            'charts': charts,
+        }
+        return render(request, 'charts/chart_list.html', context)
+    else:
+        return render(request, 'charts/chart_edit.html')
 
 
 class ChartViewSet(viewsets.ModelViewSet):

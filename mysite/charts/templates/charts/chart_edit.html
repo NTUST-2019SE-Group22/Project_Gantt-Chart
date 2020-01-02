@@ -5,11 +5,15 @@
 
 {% block content %}
 <!-- chart here -->
-<div class="col-12">
+<div class="col-12 overflow-auto">
+{% if request.user.is_authenticated %}
     <div>
         <div ondblclick="editOnClick(this)">{{ chart.title }}</div>
     </div>
-    <div id="chart_div"></div>
+    {% else %}
+    <h5>Example Gantt Chart (Free Trail)</h5>
+    {% endif %}
+    <div class="mt-3" id="chart_div"><div class="text-muted">Edit following table to show chart.</div></div>
     <canvas id="canvas" style="display: none;"></canvas>
   </div>
 {% endblock %}
@@ -17,7 +21,7 @@
 {% block table %}
 <div class="my-3 p-3 bg-white rounded box-shadow">
       <!-- table here -->
-      <div class="col-12 d-flex flex-column mb-3">
+      <div class="col-12 overflow-auto">
         <div>
             <form id="data-table" class="needs-validation" novalidate>
                 <table id="task_table" class="table">
@@ -126,12 +130,6 @@
             </div>
         </div>
     </div>
-    {{ chart.title }}<br>
-    {{ chart.owner.username }}<br>
-    {{ chart.last_modified }}<br>
-    {{ chart.tasks }}<br>
-    {{ chart.permanent_url }}<br>
-    <a href="{{ chart.get_absolute_url }}">{{ chart.get_absolute_url }}</a>
 </div>
 {% endblock %}
 

@@ -3,8 +3,8 @@ from . import views as chart_views
 
 app_name = 'charts'
 urlpatterns = [
-    # /accounts/profile/
-    path('accounts/profile/', chart_views.clist, name='list'),
+    # /charts/
+    path('charts/', chart_views.chart, name='chart'),
     # /charts/create/
     path('charts/create/', chart_views.create, name='create'),
     # /charts/ganttc/
