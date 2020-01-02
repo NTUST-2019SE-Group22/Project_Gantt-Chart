@@ -2,7 +2,8 @@
 
 {% block body %}
 <header>
-  {% include 'account/parts/header.html' %}
+  {% include 'account/part/header.html' %}
+  {% block subnavbar %}{% endblock %}
   </header>
 
   <main role="main" class="container ">
@@ -10,5 +11,6 @@
             {% block content %}
             {% endblock %}
       </div>
+      {% block table %}{% endblock %}
 </main>
 {% endblock %}

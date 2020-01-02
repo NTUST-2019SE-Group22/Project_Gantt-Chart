@@ -1,0 +1,44 @@
+{% load static %}
+
+{% comment %}
+
+This header appears above the page card for allauth views
+It should include the site name and/or logo.
+
+<img src="{% static 'img/logo.png' %}" alt="Logo" />
+
+{% endcomment %}
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand mr-auto mr-lg-3" href="#">Gantt Chart</a>
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="#">Chart Management</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="#">Account Setting</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="#">About</a>
+            </li>
+        </ul>
+        {% if request.user.is_authenticated %}
+<form class="form-inline my-2 my-lg-0">
+<div class="mr-3"style="color: white">Hi! {{ user.username }}</div>
+<a class="btn btn-outline-light my-2 my-sm-0" href="{% url 'account_logout' %}" role="button">Log out</a>
+</form>
+{% else %}
+<form class="form-inline my-2 my-lg-0">
+<a class="btn btn-outline-light my-2 my-sm-0" href="{% url 'account_login' %}" role="button">Log in</a>
+</form>
+{% endif %}
+    </div>
+</nav>

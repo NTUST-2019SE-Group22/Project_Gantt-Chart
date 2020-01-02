@@ -29,7 +29,6 @@
 {% block script %}
 <script>
     function delete_chart(chart_id){
-        let username = '{{ user.username }}';
         let confirm_ = confirm('Are you sure to delete this chart?');
         if(confirm_){
             let link = '/api/charts/' + chart_id.toString() + '/';
